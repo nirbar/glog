@@ -8,6 +8,7 @@ if (POLICY CMP0063)
   cmake_policy (SET CMP0063 NEW)
 endif (POLICY CMP0063)
 
+SET( CMAKE_POSITION_INDEPENDENT_CODE True)
 project (google-glog)
 
 IF (MSVC)
