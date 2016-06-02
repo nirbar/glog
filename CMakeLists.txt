@@ -12,13 +12,16 @@ SET( CMAKE_POSITION_INDEPENDENT_CODE True)
 project (google-glog)
 
 IF (MSVC)
-	FOREACH(flag_var
-			CMAKE_CXX_FLAGS CMAKE_CXX_FLAGS_DEBUG CMAKE_CXX_FLAGS_RELEASE
-			CMAKE_CXX_FLAGS_MINSIZEREL CMAKE_CXX_FLAGS_RELWITHDEBINFO)
-		IF(${flag_var} MATCHES "/MD")
-			STRING(REGEX REPLACE "/MD" "/MT" ${flag_var} "${${flag_var}}")
-		ENDIF(${flag_var} MATCHES "/MD")
-	ENDFOREACH(flag_var)
+	OPTION( STATIC_CRT		"Link the static CRT libraries"	ON  )
+	IF(STATIC_CRT)
+		FOREACH(flag_var
+				CMAKE_CXX_FLAGS CMAKE_CXX_FLAGS_DEBUG CMAKE_CXX_FLAGS_RELEASE
+				CMAKE_CXX_FLAGS_MINSIZEREL CMAKE_CXX_FLAGS_RELWITHDEBINFO)
+			IF(${flag_var} MATCHES "/MD")
+				STRING(REGEX REPLACE "/MD" "/MT" ${flag_var} "${${flag_var}}")
+			ENDIF(${flag_var} MATCHES "/MD")
+		ENDFOREACH(flag_var)
+	ENDIF()
 ENDIF()
 
 enable_testing ()
